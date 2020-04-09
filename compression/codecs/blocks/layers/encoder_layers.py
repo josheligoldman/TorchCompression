@@ -1,11 +1,11 @@
 import torch
 
-from compression.codecs.blocks.layers.base.layers import ProcessingLayer, UpSampleLayer, DownSampleLayer, SummedInputLayer
+from compression.codecs.blocks.layers.base import ProcessingLayer, UpSampleLayer, DownSampleLayer, SummedInputLayer
 
 
-class TopLeftCornerLayer(torch.nn.Module):
+class EncoderTopLeftCornerLayer(torch.nn.Module):
     def __init__(self, in_channels, kernel_size,):
-        super(TopLeftCornerLayer, self).__init__()
+        super(EncoderTopLeftCornerLayer, self).__init__()
 
         self.processing_layer = ProcessingLayer(
             in_channels=in_channels,
@@ -23,9 +23,9 @@ class TopLeftCornerLayer(torch.nn.Module):
         return tuple((processed_output, down_sampled_output))
 
 
-class BottomLeftCornerLayer(torch.nn.Module):
+class EncoderBottomLeftCornerLayer(torch.nn.Module):
     def __init__(self, in_channels, kernel_size,):
-        super(BottomLeftCornerLayer, self).__init__()
+        super(EncoderBottomLeftCornerLayer, self).__init__()
 
         self.processing_layer = ProcessingLayer(
             in_channels=in_channels,
@@ -43,9 +43,9 @@ class BottomLeftCornerLayer(torch.nn.Module):
         return tuple((processed_output, up_sampled_output))
 
 
-class TopRightCornerLayer(torch.nn.Module):
+class EncoderTopRightCornerLayer(torch.nn.Module):
     def __init__(self, in_channels, kernel_size,):
-        super(TopRightCornerLayer, self).__init__()
+        super(EncoderTopRightCornerLayer, self).__init__()
 
         self.input_layer = SummedInputLayer()
         self.processing_layer = ProcessingLayer(
@@ -65,9 +65,9 @@ class TopRightCornerLayer(torch.nn.Module):
         return tuple((processed_output, down_sampled_output))
 
 
-class BottomRightCornerLayer(torch.nn.Module):
+class EncoderBottomRightCornerLayer(torch.nn.Module):
     def __init__(self, in_channels, kernel_size,):
-        super(BottomRightCornerLayer, self).__init__()
+        super(EncoderBottomRightCornerLayer, self).__init__()
 
         self.input_layer = SummedInputLayer()
         self.processing_layer = ProcessingLayer(
@@ -84,9 +84,9 @@ class BottomRightCornerLayer(torch.nn.Module):
         return tuple((processed_output, ))
 
 
-class LeftEdgeLayer(torch.nn.Module):
+class EncoderLeftEdgeLayer(torch.nn.Module):
     def __init__(self, in_channels, kernel_size,):
-        super(LeftEdgeLayer, self).__init__()
+        super(EncoderLeftEdgeLayer, self).__init__()
 
         self.processing_layer = ProcessingLayer(
             in_channels=in_channels,
@@ -109,9 +109,9 @@ class LeftEdgeLayer(torch.nn.Module):
         return tuple((processed_output, up_sampled_output, down_sampled_output))
 
 
-class TopEdgeLayer(torch.nn.Module):
+class EncoderTopEdgeLayer(torch.nn.Module):
     def __init__(self, in_channels, kernel_size,):
-        super(TopEdgeLayer, self).__init__()
+        super(EncoderTopEdgeLayer, self).__init__()
 
         self.input_layer = SummedInputLayer()
         self.processing_layer = ProcessingLayer(
@@ -133,9 +133,9 @@ class TopEdgeLayer(torch.nn.Module):
         return tuple((processed_output, down_sampled_output))
 
 
-class RightEdgeLayer(torch.nn.Module):
+class EncoderRightEdgeLayer(torch.nn.Module):
     def __init__(self, in_channels, kernel_size,):
-        super(RightEdgeLayer, self).__init__()
+        super(EncoderRightEdgeLayer, self).__init__()
 
         self.input_layer = SummedInputLayer()
         self.processing_layer = ProcessingLayer(
@@ -157,9 +157,9 @@ class RightEdgeLayer(torch.nn.Module):
         return tuple((processed_output, down_sampled_output))
 
 
-class BottomEdgeLayer(torch.nn.Module):
+class EncoderBottomEdgeLayer(torch.nn.Module):
     def __init__(self, in_channels, kernel_size,):
-        super(BottomEdgeLayer, self).__init__()
+        super(EncoderBottomEdgeLayer, self).__init__()
 
         self.input_layer = SummedInputLayer()
         self.processing_layer = ProcessingLayer(
@@ -181,9 +181,9 @@ class BottomEdgeLayer(torch.nn.Module):
         return tuple((processed_output, up_sampled_output))
 
 
-class MiddleLayer(torch.nn.Module):
+class EncoderMiddleLayer(torch.nn.Module):
     def __init__(self, in_channels, kernel_size,):
-        super(MiddleLayer, self).__init__()
+        super(EncoderMiddleLayer, self).__init__()
 
         self.input_layer = SummedInputLayer()
         self.processing_layer = ProcessingLayer(
