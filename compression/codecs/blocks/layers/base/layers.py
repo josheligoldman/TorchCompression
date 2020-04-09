@@ -83,7 +83,7 @@ class SummationLayer(torch.nn.Module):
     def forward(self, list_input_tensors):
         total_sum = list_input_tensors[0]
         for tensor_index in range(1, len(list_input_tensors)):
-            print("Sum Layer Shape", list_input_tensors[tensor_index.shape])
+            print("Sum Layer Shape", list_input_tensors[tensor_index].shape)
             total_sum += list_input_tensors[tensor_index]
 
         return total_sum
