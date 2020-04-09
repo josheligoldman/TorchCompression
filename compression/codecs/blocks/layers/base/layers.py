@@ -110,9 +110,9 @@ class SliceLayer(torch.nn.Module):
     def forward(self, input_tensor, height, width):
         sliced = input_tensor[
             :,
+            :
             : height,
             : width,
-            :
         ]
 
         return sliced
@@ -125,8 +125,8 @@ class GroupSliceLayer(torch.nn.Module):
         self.slice_layer = SliceLayer()
 
     def forward(self, list_input_tensors):
-        list_heights = [tensor.shape[1] for tensor in list_input_tensors]
-        list_widths = [tensor.shape[2] for tensor in list_input_tensors]
+        list_heights = [tensor.shape[2] for tensor in list_input_tensors]
+        list_widths = [tensor.shape[3] for tensor in list_input_tensors]
 
         slice_height = min(list_heights)
         slice_width = min(list_widths)
