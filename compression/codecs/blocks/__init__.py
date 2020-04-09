@@ -1,2 +1,2 @@
-from compression.codecs.blocks.encoder_block import *
-from compression.codecs.blocks.decoder_block import *
+from compression.codecs.blocks.encoder_block import EncoderPreProcessingBlock, EncoderBlock, EncoderPostProcessingBlock
+from compression.codecs.blocks.decoder_block import DecoderPreProcessingBlock, DecoderBlock, DecoderPostProcessingBlock

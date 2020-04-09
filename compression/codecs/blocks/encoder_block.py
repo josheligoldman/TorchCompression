@@ -1,11 +1,11 @@
 import torch
 
 
-from compression.codecs.blocks.layers.encoder_layers import TopLeftCornerLayer, TopRightCornerLayer
-from compression.codecs.blocks.layers.encoder_layers import BottomLeftCornerLayer, BottomRightCornerLayer
-from compression.codecs.blocks.layers.encoder_layers import TopEdgeLayer, BottomEdgeLayer
-from compression.codecs.blocks.layers.encoder_layers import LeftEdgeLayer, RightEdgeLayer
-from compression.codecs.blocks.layers.encoder_layers import MiddleLayer
+from compression.codecs.blocks.layers import EncoderTopLeftCornerLayer, EncoderTopRightCornerLayer
+from compression.codecs.blocks.layers import EncoderBottomLeftCornerLayer, EncoderBottomRightCornerLayer
+from compression.codecs.blocks.layers import EncoderTopEdgeLayer, EncoderBottomEdgeLayer
+from compression.codecs.blocks.layers import EncoderLeftEdgeLayer, EncoderRightEdgeLayer
+from compression.codecs.blocks.layers import EncoderMiddleLayer
 
 from compression.codecs.blocks.layers.base import ConvolutionLayer
 
@@ -44,20 +44,20 @@ class EncoderBlock(torch.nn.Module):
             if column == 0:
                 # if its the first column
                 column_list.append(
-                    TopLeftCornerLayer(
+                    EncoderTopLeftCornerLayer(
                         in_channels=in_channels,
                         kernel_size=kernel_size,
                     )
                 )
                 for row in range(int(self.num_rows - 2)):
                     column_list.append(
-                        LeftEdgeLayer(
+                        EncoderLeftEdgeLayer(
                             in_channels=in_channels,
                             kernel_size=kernel_size,
                         )
                     )
                 column_list.append(
-                    BottomLeftCornerLayer(
+                    EncoderBottomLeftCornerLayer(
                         in_channels=in_channels,
                         kernel_size=kernel_size,
                     )
@@ -65,20 +65,20 @@ class EncoderBlock(torch.nn.Module):
             elif column == (self.num_columns - 1):
                 # if its the last column
                 column_list.append(
-                    TopRightCornerLayer(
+                    EncoderTopRightCornerLayer(
                         in_channels=in_channels,
                         kernel_size=kernel_size,
                     )
                 )
                 for row in range(int(self.num_rows - 2)):
                     column_list.append(
-                        RightEdgeLayer(
+                        EncoderRightEdgeLayer(
                             in_channels=in_channels,
                             kernel_size=kernel_size,
                         )
                     )
                 column_list.append(
-                    BottomRightCornerLayer(
+                    EncoderBottomRightCornerLayer(
                         in_channels=in_channels,
                         kernel_size=kernel_size,
                     )
@@ -86,20 +86,20 @@ class EncoderBlock(torch.nn.Module):
             else:
                 # if its one of the middle columns
                 column_list.append(
-                    TopEdgeLayer(
+                    EncoderTopEdgeLayer(
                         in_channels=in_channels,
                         kernel_size=kernel_size,
                     )
                 )
                 for row in range(int(self.num_rows - 2)):
                     column_list.append(
-                        MiddleLayer(
+                        EncoderMiddleLayer(
                             in_channels=in_channels,
                             kernel_size=kernel_size,
                         )
                     )
                 column_list.append(
-                    BottomEdgeLayer(
+                    EncoderBottomEdgeLayer(
                         in_channels=in_channels,
                         kernel_size=kernel_size,
                     )

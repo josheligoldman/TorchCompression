@@ -1,2 +1,11 @@
-from compression.codecs.blocks.layers.encoder_layers import *
-from compression.codecs.blocks.layers.decoder_layers import *
+from compression.codecs.blocks.layers.encoder_layers import EncoderTopLeftCornerLayer, EncoderBottomLeftCornerLayer
+from compression.codecs.blocks.layers.encoder_layers import EncoderTopRightCornerLayer, EncoderBottomRightCornerLayer
+from compression.codecs.blocks.layers.encoder_layers import EncoderLeftEdgeLayer, EncoderRightEdgeLayer
+from compression.codecs.blocks.layers.encoder_layers import EncoderBottomEdgeLayer, EncoderTopEdgeLayer
+from compression.codecs.blocks.layers.encoder_layers import EncoderMiddleLayer
+
+from compression.codecs.blocks.layers.decoder_layers import DecoderTopLeftCornerLayer, DecoderBottomLeftCornerLayer
+from compression.codecs.blocks.layers.decoder_layers import DecoderTopRightCornerLayer, DecoderBottomRightCornerLayer
+from compression.codecs.blocks.layers.decoder_layers import DecoderLeftEdgeLayer, DecoderRightEdgeLayer
+from compression.codecs.blocks.layers.decoder_layers import DecoderBottomEdgeLayer, DecoderTopEdgeLayer
+from compression.codecs.blocks.layers.decoder_layers import DecoderMiddleLayer

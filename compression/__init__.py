@@ -1,0 +1,1 @@
+from compression.model import Model

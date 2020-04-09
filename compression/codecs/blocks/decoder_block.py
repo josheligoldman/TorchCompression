@@ -1,10 +1,10 @@
 import torch
 
-from compression.codecs.blocks.layers.decoder_layers import TopLeftCornerLayer, TopRightCornerLayer
-from compression.codecs.blocks.layers.decoder_layers import BottomLeftCornerLayer, BottomRightCornerLayer
-from compression.codecs.blocks.layers.decoder_layers import TopEdgeLayer, BottomEdgeLayer
-from compression.codecs.blocks.layers.decoder_layers import LeftEdgeLayer, RightEdgeLayer
-from compression.codecs.blocks.layers.decoder_layers import MiddleLayer
+from compression.codecs.blocks.layers import DecoderTopLeftCornerLayer, DecoderTopRightCornerLayer
+from compression.codecs.blocks.layers import DecoderBottomLeftCornerLayer, DecoderBottomRightCornerLayer
+from compression.codecs.blocks.layers import DecoderTopEdgeLayer, DecoderBottomEdgeLayer
+from compression.codecs.blocks.layers import DecoderLeftEdgeLayer, DecoderRightEdgeLayer
+from compression.codecs.blocks.layers import DecoderMiddleLayer
 
 from compression.codecs.blocks.layers.base import ConvolutionLayer
 
@@ -43,20 +43,20 @@ class DecoderBlock(torch.nn.Module):
             if column == 0:
                 # if its the first column
                 column_list.append(
-                        BottomLeftCornerLayer(
+                        DecoderBottomLeftCornerLayer(
                             in_channels=in_channels,
                             kernel_size=kernel_size,
                         )
                 )
                 for row in range(int(self.num_rows - 2)):
                     column_list.append(
-                        LeftEdgeLayer(
+                        DecoderLeftEdgeLayer(
                             in_channels=in_channels,
                             kernel_size=kernel_size,
                         )
                     )
                 column_list.append(
-                    TopLeftCornerLayer(
+                    DecoderTopLeftCornerLayer(
                         in_channels=in_channels,
                         kernel_size=kernel_size,
                     )
@@ -64,20 +64,20 @@ class DecoderBlock(torch.nn.Module):
             elif column == (self.num_columns - 1):
                 # if its the last column
                 column_list.append(
-                    BottomRightCornerLayer(
+                    DecoderBottomRightCornerLayer(
                         in_channels=in_channels,
                         kernel_size=kernel_size,
                     )
                 )
                 for row in range(int(self.num_rows - 2)):
                     column_list.append(
-                        RightEdgeLayer(
+                        DecoderRightEdgeLayer(
                             in_channels=in_channels,
                             kernel_size=kernel_size,
                         )
                     )
                 column_list.append(
-                    TopRightCornerLayer(
+                    DecoderTopRightCornerLayer(
                         in_channels=in_channels,
                         kernel_size=kernel_size,
                     )
@@ -85,20 +85,20 @@ class DecoderBlock(torch.nn.Module):
             else:
                 # if its one of the middle columns
                 column_list.append(
-                    BottomEdgeLayer(
+                    DecoderBottomEdgeLayer(
                         in_channels=in_channels,
                         kernel_size=kernel_size,
                     )
                 )
                 for row in range(int(self.num_rows - 2)):
                     column_list.append(
-                        MiddleLayer(
+                        DecoderMiddleLayer(
                             in_channels=in_channels,
                             kernel_size=kernel_size,
                         )
                     )
                 column_list.append(
-                    TopEdgeLayer(
+                    DecoderTopEdgeLayer(
                         in_channels=in_channels,
                         kernel_size=kernel_size,
                     )

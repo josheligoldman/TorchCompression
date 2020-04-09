@@ -1,2 +1,2 @@
-from compression.codecs.encoder import *
-from compression.codecs.decoder import *
+from compression.codecs.encoder import Encoder
+from compression.codecs.decoder import Decoder
