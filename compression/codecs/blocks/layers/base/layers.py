@@ -9,7 +9,7 @@ class TanhActivation(torch.nn.Module):
         self.coefficient = torch.tensor(3.0, dtype=torch.float32)
 
     def forward(self, input_tensor):
-        activated = torch.nn.functional.tanh(
+        activated = torch.tanh(
             input_tensor / self.divisor
         ) * self.coefficient
 
