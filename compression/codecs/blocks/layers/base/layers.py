@@ -16,6 +16,21 @@ class TanhActivation(torch.nn.Module):
         return activated
 
 
+class SliceLayer(torch.nn.Module):
+    def __init__(self):
+        super(SliceLayer, self).__init__()
+
+    def forward(self, input_tensor, height, width):
+        sliced = input_tensor[
+            :,
+            :,
+            : height,
+            : width,
+        ]
+
+        return sliced
+
+
 class ConvolutionPreProcessing(torch.nn.Module):
     def __init__(self, in_channels):
         super(ConvolutionPreProcessing, self).__init__()
@@ -64,16 +79,22 @@ class TransposedConvolutionLayer(torch.nn.Module):
                 out_channels=num_filters,
                 kernel_size=kernel_size,
                 stride=stride,
-                padding=1,
+                # padding=0,
             )
         )
+        self.slice_layer = SliceLayer()
 
     def forward(self, input_tensor):
         transposed_convolution_output = self.transposed_convolution_layer(
             input_tensor
         )
+        sliced = self.slice_layer(
+            transposed_convolution_output,
+            transposed_convolution_output.shape[2] - 1,
+            transposed_convolution_output.shape[3] - 1
+        )
 
-        return transposed_convolution_output
+        return sliced
 
 
 class SummationLayer(torch.nn.Module):
@@ -83,7 +104,6 @@ class SummationLayer(torch.nn.Module):
     def forward(self, list_input_tensors):
         total_sum = list_input_tensors[0]
         for tensor_index in range(1, len(list_input_tensors)):
-            print("Sum Layer Shape", list_input_tensors[tensor_index].shape)
             total_sum += list_input_tensors[tensor_index]
 
         return total_sum
@@ -102,21 +122,6 @@ class ConcatenationLayer(torch.nn.Module):
         )
 
         return concatenated
-
-
-class SliceLayer(torch.nn.Module):
-    def __init__(self):
-        super(SliceLayer, self).__init__()
-
-    def forward(self, input_tensor, height, width):
-        sliced = input_tensor[
-            :,
-            :
-            : height,
-            : width,
-        ]
-
-        return sliced
 
 
 class GroupSliceLayer(torch.nn.Module):

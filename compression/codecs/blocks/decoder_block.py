@@ -20,7 +20,7 @@ class DecoderPreProcessingBlock(torch.nn.Module):
             stride=(1, 1)
         )
 
-    def call(self, input_tensor):
+    def forward(self, input_tensor):
         convolution_output = self.convolution_layer(input_tensor)
 
         return convolution_output
@@ -106,7 +106,7 @@ class DecoderBlock(torch.nn.Module):
 
             self.list_layers.append(column_list)
 
-    def call(self, input_tensor):
+    def forward(self, input_tensor):
         # layer outputs are always in the following order: process, up, down
         list_column_outputs = [[]] * self.num_rows
         for column_index, column in enumerate(self.list_layers):
@@ -190,7 +190,7 @@ class DecoderPostProcessingBlock(torch.nn.Module):
             stride=(1, 1)
         )
 
-    def call(self, input_tensor):
+    def forward(self, input_tensor):
         feature_extraction_output = self.feature_extraction_layer(
             input_tensor
         )
