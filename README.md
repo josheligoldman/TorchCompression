@@ -1,1 +1,1 @@
-# Compression Repository Built With PyTorch
+# Data Compression Module Built With PyTorch
