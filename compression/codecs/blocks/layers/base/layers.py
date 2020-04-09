@@ -102,11 +102,13 @@ class SummationLayer(torch.nn.Module):
         super(SummationLayer, self).__init__()
 
     def forward(self, list_input_tensors):
-        total_sum = list_input_tensors[0]
-        for tensor_index in range(1, len(list_input_tensors)):
-            total_sum += list_input_tensors[tensor_index]
+        stacked = torch.stack(
+            list_input_tensors,
+            dim=-1,
+        )
+        summed = stacked.sum(dim=-1)
 
-        return total_sum
+        return summed
 
 
 class ConcatenationLayer(torch.nn.Module):
