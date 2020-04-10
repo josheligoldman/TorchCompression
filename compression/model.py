@@ -30,7 +30,6 @@ class Model(torch.nn.Module):
 
     def forward(self, input_image):
         encoded = self.encoder(input_image)
-        print("Encoded Shape:", encoded.shape)
         decoded = self.decoder(encoded)
 
         return decoded
