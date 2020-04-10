@@ -154,8 +154,6 @@ class DecoderRightEdgeLayer(torch.nn.Module):
         processed_output = self.processing_layer(summed_input)
         up_sampled_output = self.up_sample_layer(processed_output)
 
-        print("Dec Right Shape", processed_output.shape)
-
         return tuple((processed_output, up_sampled_output))
 
 

@@ -154,8 +154,6 @@ class EncoderRightEdgeLayer(torch.nn.Module):
         processed_output = self.processing_layer(summed_input)
         down_sampled_output = self.down_sample_layer(processed_output)
 
-        print("Enc Right Shape", processed_output.shape)
-
         return tuple((processed_output, down_sampled_output))
 
 
