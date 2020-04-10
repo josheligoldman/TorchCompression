@@ -1,12 +1,8 @@
-import pathlib
-import os
-import datetime
-
 import torch
-import numpy
-import cv2
+import torchsummary
 
 from compression import Model, ModelConfig
+
 
 class Main:
     def __init__(self, is_cuda):
@@ -18,13 +14,13 @@ class Main:
             num_rows_encoder=5,
             num_input_image_channels=3,
             num_filters_encoder=32,
-            kernel_size_encoder=3,
+            kernel_size_encoder=5,
             latent_space_num_channels=3,
             ### Decoder ###
             num_columns_decoder=5,
             num_rows_decoder=5,
             num_filters_decoder=32,
-            kernel_size_decoder=3,
+            kernel_size_decoder=5,
             num_final_feature_maps=256,
             reconstructed_image_num_channels=3,
         )
@@ -55,5 +51,6 @@ main = Main(
     is_cuda=False
 )
 
-main.summary()
 main.model_test()
+# main.summary()
+
