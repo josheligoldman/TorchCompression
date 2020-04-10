@@ -70,16 +70,15 @@ class ConvolutionLayer(torch.nn.Module):
 
 
 class TransposedConvolutionLayer(torch.nn.Module):
-    def __init__(self, in_channels, num_filters, kernel_size, stride=(2, 2), **kwargs):
+    def __init__(self, in_channels, num_filters):
         super(TransposedConvolutionLayer, self).__init__()
         self.transposed_convolution_layer = torch.nn.Sequential(
             ConvolutionPreProcessing(in_channels),
             torch.nn.ConvTranspose2d(
                 in_channels=in_channels,
                 out_channels=num_filters,
-                kernel_size=kernel_size,
-                stride=stride,
-                # padding=0,
+                kernel_size=(2, 2),
+                stride=(2, 2),
             )
         )
         self.slice_layer = SliceLayer()
@@ -426,8 +425,6 @@ class UpSampleLayer(torch.nn.Module):
         self.up_sample_layer = TransposedConvolutionLayer(
             in_channels=in_channels,
             num_filters=in_channels,
-            kernel_size=kernel_size,
-            stride=(2, 2),
         )
 
     def forward(self, input_tensor):

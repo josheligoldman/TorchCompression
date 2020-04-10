@@ -9,7 +9,7 @@ class TransposedConvolutionLayer(torch.nn.Module):
         self.layer = torch.nn.ConvTranspose2d(
             in_channels=3,
             out_channels=3,
-            kernel_size=3,
+            kernel_size=2,
             stride=2,
         )
 
@@ -20,6 +20,8 @@ class TransposedConvolutionLayer(torch.nn.Module):
         test_input = torch.rand(
             (1, 3, 33, 33)
         )
+        # test_input = torch.narrow(test_input, 3, 0, 31)
+        # test_input = torch.narrow(test_input, 2, 0, 31)
         test_output = self.forward(test_input)
         print("Torch Out Shape:", test_output.shape)
 
