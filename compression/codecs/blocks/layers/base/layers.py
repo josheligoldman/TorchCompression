@@ -50,6 +50,8 @@ class ConvolutionLayer(torch.nn.Module):
     def __init__(self, in_channels, num_filters, kernel_size, stride):
         super(ConvolutionLayer, self).__init__()
 
+        self.padding = (kernel_size - 1) // 2
+
         self.convolution_layer = torch.nn.Sequential(
             ConvolutionPreProcessing(in_channels),
             torch.nn.Conv2d(
@@ -57,7 +59,7 @@ class ConvolutionLayer(torch.nn.Module):
                 out_channels=num_filters,
                 kernel_size=kernel_size,
                 stride=stride,
-                padding=1,
+                padding=self.padding,
             )
         )
 
@@ -72,28 +74,23 @@ class ConvolutionLayer(torch.nn.Module):
 class TransposedConvolutionLayer(torch.nn.Module):
     def __init__(self, in_channels, num_filters):
         super(TransposedConvolutionLayer, self).__init__()
+
         self.transposed_convolution_layer = torch.nn.Sequential(
             ConvolutionPreProcessing(in_channels),
             torch.nn.ConvTranspose2d(
                 in_channels=in_channels,
                 out_channels=num_filters,
-                kernel_size=(2, 2),
-                stride=(2, 2),
+                kernel_size=2,
+                stride=2,
             )
         )
-        self.slice_layer = SliceLayer()
 
     def forward(self, input_tensor):
         transposed_convolution_output = self.transposed_convolution_layer(
             input_tensor
         )
-        sliced = self.slice_layer(
-            transposed_convolution_output,
-            transposed_convolution_output.shape[2] - 1,
-            transposed_convolution_output.shape[3] - 1
-        )
 
-        return sliced
+        return transposed_convolution_output
 
 
 class SummationLayer(torch.nn.Module):

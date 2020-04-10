@@ -18,7 +18,7 @@ class TransposedConvolutionLayer(torch.nn.Module):
 
     def test(self):
         test_input = torch.rand(
-            (1, 3, 33, 33)
+            (1, 3, 63, 63)
         )
         # test_input = torch.narrow(test_input, 3, 0, 31)
         # test_input = torch.narrow(test_input, 2, 0, 31)
